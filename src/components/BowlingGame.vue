@@ -67,11 +67,11 @@ a {
 .stars-board {
   background-color: rgb(207, 207, 207);
   border-radius: 5px;
-  height: 60vh;
-  max-height: 400px;
+  height: fit-content;
   margin-right: 35vw;
   margin-left: 35vw;
   margin-bottom: 3vh;
+  padding-bottom: 0.8em;
   display:block;
 }
 .the-white-board {
@@ -92,7 +92,6 @@ a {
   .stars-board {
     background-color: rgb(179, 180, 180);
     border-radius: 5px;
-    min-height: 60vh;
     margin-right: 20vw;
     margin-left: 20vw;
     margin-bottom: 4vh;
@@ -102,7 +101,6 @@ a {
   .stars-board {
     background-color: rgb(179, 180, 180);
     border-radius: 5px;
-    min-height: 60vh;
     margin-right: 5vw;
     margin-left: 5vw;
     margin-bottom: 4vh;
