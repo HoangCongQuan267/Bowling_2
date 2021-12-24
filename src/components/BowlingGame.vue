@@ -28,7 +28,7 @@ export default {
   name: "Title",
   data() {
     return {
-      title: "The Bowling Game",
+      title: "Bowling Stars",
     };
   },
 };
