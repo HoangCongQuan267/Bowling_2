@@ -659,7 +659,7 @@ export default {
           .getBoundingClientRect();
         if (!this.pins_fall_array[i - 1]) {
           pins_ratio_array.push(
-            (red_ball_offset - 4) / (pin_rect.left - game_rect.left)
+            (red_ball_offset + 4) / (pin_rect.left - game_rect.left)
           );
         } else {
           pins_ratio_array.push(0);
