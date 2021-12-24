@@ -268,9 +268,13 @@
     />
     <div class="shadow-of-the-basket-div"></div>
     <button
-      class="enter-btn"
+      id="enter-btn"
+      class="button-30"
       v-on:click="throw_the_ball(type_of_the_ball)"
-    ></button>
+      @keyup.enter="throw_the_ball(type_of_the_ball)"
+    >
+      <b>E</b>
+    </button>
     <div v-if="is_end === true" class="game-over-div" id="game-over-div">
       <h4><b>Score</b></h4>
       <h4>
@@ -319,10 +323,13 @@ function initialState() {
     pin_7: [7],
     pin_10: [10],
     pin_4: [4, 7, 8],
-    pin_6: [6, 9, 10],
-    pin_2_9: [2, 5, 6, 8, 9, 10],
-    pin_3_8: [3, 4, 5, 7, 8, 9],
-    pin_1_5: Array.from(Array(10).keys()),
+    pin_6: [6, 10, 9],
+    pin_2_9: [2, 9, 5, 6, 8, 10],
+    pin_3_8: [3, 8, 4, 5, 7, 9],
+    pin_1_5: [0,1,2,3,4,5,7,8,6,9],
+    random_1_5: [8, 9, 10],
+    random_2_9_3_8: [4, 5, 6],
+    random_4_6: [2, 3],
     score: "-",
     count_ball: 0,
   };
@@ -339,6 +346,12 @@ export default {
     /*---------------------------------------------------------------------------------------------------*/
     reset() {
       Object.assign(this.$data, initialState());
+      document.getElementById("ball-track").style.display = "none";
+      document.getElementById("enter-the-red-ball").style.display = "none";
+      document.getElementById("enter-the-black-ball").style.display = "none";
+      document.getElementById("red-ball").style.display = "block";
+      document.getElementById("black-ball").style.display = "block";
+      document.getElementById("spining-ball").style.display = "none";
       for (var i = 1; i < 11; i++) {
         document.getElementById("pin-" + i).className = "pin-div-" + i;
       }
@@ -660,11 +673,13 @@ export default {
       var index_of_nearest_ball = pins_ratio_array.indexOf(closest);
       console.log(index_of_nearest_ball);
       console.log(closest);
-      if (closest > 0.85) {
+      if (closest > 0.85 && closest < 0.96) {
         if (
           index_of_nearest_ball + 1 === 1 ||
           index_of_nearest_ball + 1 === 5
         ) {
+          var random =
+            this.random_1_5[Math.floor(Math.random() * this.random_1_5.length)];
           for (let pin of this.pin_1_5) {
             if (!this.pins_fall_array[pin]) {
               this.current_pins -= 1;
@@ -677,11 +692,16 @@ export default {
                 });
               });
             }
+            random -= 1;
+            if (random === 0) break;
           }
         } else if (
           index_of_nearest_ball + 1 === 3 ||
           index_of_nearest_ball + 1 === 8
         ) {
+          var random =
+            this.random_2_9_3_8[Math.floor(Math.random() * this.random_2_9_3_8.length)];
+
           for (let item of this.pin_3_8) {
             if (!this.pins_fall_array[item - 1]) {
               var_score += 1;
@@ -694,11 +714,15 @@ export default {
                 });
               });
             }
+            random -= 1;
+            if (random === 0) break;
           }
         } else if (
           index_of_nearest_ball + 1 === 2 ||
           index_of_nearest_ball + 1 === 9
         ) {
+          var random =
+            this.random_2_9_3_8[Math.floor(Math.random() * this.random_2_9_3_8.length)];
           for (let item of this.pin_2_9) {
             if (!this.pins_fall_array[item - 1]) {
               var_score += 1;
@@ -711,8 +735,12 @@ export default {
                 });
               });
             }
+            random -= 1;
+            if (random === 0) break;
           }
         } else if (index_of_nearest_ball + 1 === 4) {
+          var random =
+            this.random_4_6[Math.floor(Math.random() * this.random_4_6.length)];
           for (let item of this.pin_4) {
             if (!this.pins_fall_array[item - 1]) {
               var_score += 1;
@@ -725,8 +753,12 @@ export default {
                 });
               });
             }
+            random -= 1;
+            if (random === 0) break;
           }
         } else if (index_of_nearest_ball + 1 === 6) {
+          var random =
+            this.random_4_6[Math.floor(Math.random() * this.random_4_6.length)];
           for (let item of this.pin_6) {
             if (!this.pins_fall_array[item - 1]) {
               var_score += 1;
@@ -739,6 +771,8 @@ export default {
                 });
               });
             }
+            random -= 1;
+            if (random === 0) break;
           }
         } else if (
           index_of_nearest_ball + 1 === 7 ||
@@ -800,15 +834,16 @@ input[type="number"] {
 }
 .game-div {
   position: absolute;
-  top: 5%;
+  top: 5px;
   left: calc((100vw - 600px) / 2);
   width: 600px;
-  height: 90%;
-  max-height: 800px;
+  height: 900px;
+  max-height: calc(100vh - 5px);
   background-color: rgb(217, 215, 223);
   border-radius: 2px;
   overflow: hidden;
   font-size: small;
+  font-family: "Rubik", sans-serif;
 }
 .nav-bar-div {
   position: absolute;
@@ -850,15 +885,18 @@ input[type="number"] {
 }
 .link-btn {
   padding: 2px;
-  margin-top: 3px;
+  margin-top: 2px;
   margin-left: 3px;
   outline: none !important;
   border: none;
   height: fit-content;
   border-radius: 4px;
-  background-color: burlywood;
+  background-color: rgb(166, 216, 231);
+  border: 1px solid rgb(129, 168, 180);
   text-decoration: none;
-  color: #1d4131;
+  color: #163024;
+  font-size: small;
+  font-family: "Rubik", sans-serif;
 }
 .link-btn:hover {
   background-color: #5f8675;
@@ -878,8 +916,10 @@ input[type="number"] {
 }
 .table-label-div {
   width: 100%;
+  height: 33.33%;
   white-space: nowrap;
   overflow: hidden;
+  font-size: small;
 }
 .border-inside {
   box-sizing: border-box;
@@ -900,7 +940,6 @@ input[type="number"] {
   width: 69%;
   height: 169px;
   bottom: 100px;
-  border-radius: 0 0 5px 5px;
   margin-left: 15.2%;
   background-color: rgb(61, 50, 50);
   -webkit-clip-path: polygon(39.5% 0, 0 100%, 100% 100%, 100% 100%, 68% 0);
@@ -921,7 +960,7 @@ input[type="number"] {
   z-index: 100;
 }
 .pin-place-div {
-  background-color: burlywood;
+  background-color: rgb(192, 187, 181);
   height: 18px;
 }
 .front-floor-div {
@@ -930,8 +969,7 @@ input[type="number"] {
   left: 0%;
   width: 100%;
   height: 100px;
-  background-color: burlywood;
-  border-radius: 0 0 5px 5px;
+  background-color: rgb(88, 118, 119);
 }
 .middle-floor-div {
   position: absolute;
@@ -946,12 +984,12 @@ input[type="number"] {
 .bowling-basket-div {
   position: absolute;
   right: 0px;
-  bottom: 30px;
+  bottom: 29px;
   height: 100px;
   width: 15%;
-  background-color: rgb(153, 102, 8);
+  background-color: rgb(75, 75, 75);
   border-radius: 5px 0px 0px 0;
-  border-top: 20px solid rgb(228, 150, 5);
+  border-top: 20px solid rgb(119, 118, 118);
   z-index: 100;
 }
 .bowling-basket {
@@ -964,15 +1002,15 @@ input[type="number"] {
   z-index: 100;
   transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0px)
     translateZ(-105px);
-  clip-path: polygon(0 0, 90% 100%, 100% 100%, 100% 100%, 100% 0);
+  clip-path: polygon(0 0, 95% 100%, 100% 100%, 100% 100%, 100% 0);
 }
 .pins-hole-div {
   position: absolute;
   bottom: 269px;
   width: 19.7%;
   height: 40px;
-  border-radius: 0% 0% 0 0;
-  background-color: rgb(61, 50, 50);
+  border-radius: 25px 25px 0 0;
+  background-color: rgb(41, 32, 32);
   left: 42.3%;
   z-index: 100;
 }
@@ -1120,7 +1158,7 @@ input[type="number"] {
   height: 5em;
   width: 5em;
   border-radius: 50%;
-  z-index: 999;
+  z-index: 100;
   cursor: pointer;
   opacity: 0;
 }
@@ -1211,6 +1249,58 @@ input[type="number"] {
   font-size: xx-large;
   padding-top: 40%;
 }
+/* button mẫu */
+.button-30 {
+  position: absolute;
+  right: 75%;
+  bottom: 70px;
+  height: 4em;
+  width: 4em;
+  background-color: rgb(43, 155, 163);
+  z-index: 999;
+  border-radius: 25px;
+  align-items: center;
+  appearance: none;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+.button-30:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
 @keyframes pin-fall {
   0% {
     transform: rotateX(0deg) translateZ(0);
@@ -1241,9 +1331,10 @@ input[type="number"] {
   20% {
     bottom: 50px;
   }
-  30% {
+  20% {
     bottom: 60px;
     /* left: 50%; */
+    transform: scale(0.8) rotateZ(120deg);
   }
   99.99% {
     opacity: 1;
@@ -1251,7 +1342,7 @@ input[type="number"] {
   }
   100% {
     bottom: 250px;
-    transform: scale(0.3) rotateZ(360deg);
+    transform: scale(0.2) rotateZ(720deg);
     display: none !important;
     opacity: 0;
   }
@@ -1261,7 +1352,8 @@ input[type="number"] {
     top: 0%;
     left: calc((100% - 600px) / 2);
     width: 600px;
-    height: 90%;
+    height: 900px;
+    max-height: 100%;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -1278,15 +1370,18 @@ input[type="number"] {
     width: 3.5em;
   }
   .the-red-ball {
-    right: -0.5em;
+    right: 0.25em;
     bottom: 90px;
-    height: 3.5em;
-    width: 3.5em;
+    height: 3.75em;
+    width: 3.75em;
   }
   .the-black-ball {
     right: -1.5em;
-    height: 3.5em;
-    width: 3.5em;
+    height: 4em;
+    width: 4em;
+  }
+  .table-label-div {
+    font-size: x-small;
   }
 }
 </style>

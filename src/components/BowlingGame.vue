@@ -1,24 +1,27 @@
 <template>
   <div class="hello">
-    <h1 style="color: white">{{ title }}</h1>
+    <h1 style="color: white; font-family: 'Shizuru', cursive">{{ title }}</h1>
+
+    <input type="text" class="name-input" placeholder="Your Name..." />
+    <router-link to="/started_" class="start-btn"
+      ><b>Let's get started!!!</b></router-link
+    >
 
     <div class="stars-board">
-      <h4
+      <h5
         style="
           background-color: brown;
           color: white;
           border-radius: 5px 5px 0 0;
           height: 3vh;
+          font-family: 'Rubik', sans-serif;
+          padding-bottom: 5px; 
         "
       >
         Stars Board
-      </h4>
+      </h5>
       <div class="the-white-board"></div>
     </div>
-    <input type="text" />
-    <router-link to="/started_" class="start-btn"
-      ><b>Let get started!!!</b></router-link
-    >
   </div>
 </template>
 <script>
@@ -51,36 +54,57 @@ a {
   padding: 10px;
   outline: none !important;
   border: none;
-  border-radius: 4px;
-  background-color: burlywood;
+  font-size: smaller;
+  border-radius: 25px;
+  background-color: rgb(148, 212, 214);
   text-decoration: none;
-  color: #1d4131;
+  color: rgb(45, 60, 66);
+  font-family: 'Rubik', sans-serif;
 }
 .start-btn:hover {
   background-color: #5f8675;
   color: white;
 }
 .stars-board {
-  background-color: burlywood;
+  background-color: rgb(207, 207, 207);
   border-radius: 5px;
   min-height: 60vh;
-  margin-right: 30vw;
-  margin-left: 30vw;
-  margin-bottom: 4vh;
+  margin-right: 35vw;
+  margin-left: 35vw;
+  margin-bottom: 3vh;
+  display:block;
 }
 .the-white-board {
   background-color: white;
-  min-height: 52.5vh;
+  min-height: 51vh;
   margin-left: 10px;
   margin-right: 10px;
+  border-radius: 5px;
 }
-@media only screen and (max-width: 600px) {
+.name-input {
+  outline: none;
+  background-color: rgb(200, 236, 250);
+  padding: 3px;
+  border-radius: 25px;
+  font-family: 'Oswald', sans-serif;
+}
+@media only screen and (max-width: 1000px) {
   .stars-board {
-    background-color: burlywood;
+    background-color: rgb(179, 180, 180);
     border-radius: 5px;
     min-height: 60vh;
-    margin-right: 0vw;
-    margin-left: 0vw;
+    margin-right: 20vw;
+    margin-left: 20vw;
+    margin-bottom: 4vh;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .stars-board {
+    background-color: rgb(179, 180, 180);
+    border-radius: 5px;
+    min-height: 60vh;
+    margin-right: 5vw;
+    margin-left: 5vw;
     margin-bottom: 4vh;
   }
 }
