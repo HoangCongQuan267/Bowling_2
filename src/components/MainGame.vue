@@ -379,8 +379,7 @@ export default {
       this.total_score_array = Array(10).fill("-");
       this.spare_bonus_array = Array(10).fill(0);
       while (this.total_score_array[this.max_frame - 1] === "-") {
-        this.is_selected = true;
-        this.throw_the_ball();
+        this.score_calculate();
         this.is_end = true;
       }
     },
@@ -461,6 +460,11 @@ export default {
         });
         /*----------------------------------------get elements score-----------------------------------------*/
         this.type_of_the_ball = type;
+        var a = setTimeout(this.score_calculate ,3500);
+      }
+    },
+    /*---------------------------------------------------------------------------------------------------*/
+    score_calculate(){
         /*---------------------------------------------------------------------------------------------------*/
         if (this.ball_index === 1 && !this.is_check_mode) {
           this.$set(
@@ -497,9 +501,7 @@ export default {
         if (this.total_score_array[this.max_frame - 1] !== "-") {
           this.is_end = true;
         }
-      }
     },
-    /*---------------------------------------------------------------------------------------------------*/
     calculate_score_function() {
       if (this.current_frame === 0) {
         if (this.ball_index === 2) this.calculate_normal_case();
@@ -671,8 +673,6 @@ export default {
         return Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev;
       });
       var index_of_nearest_ball = pins_ratio_array.indexOf(closest);
-      console.log(index_of_nearest_ball);
-      console.log(closest);
       if (closest > 0.85 && closest < 0.96) {
         if (
           index_of_nearest_ball + 1 === 1 ||
@@ -799,7 +799,7 @@ export default {
       } else {
         this.count_ball += 2;
       }
-      const reset_pin_timeout = setTimeout(this.reset_pin, 3000);
+      const reset_pin_timeout = setTimeout(this.reset_pin, 4000);
     },
     /*---------------------------------------------------------------------------------------------------*/
     reset_pin() {
