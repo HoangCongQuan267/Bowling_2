@@ -6,7 +6,6 @@
     <router-link to="/started_" class="start-btn"
       ><b>Let's get started!!!</b></router-link
     >
-
     <div class="stars-board">
       <h5
         style="
@@ -68,7 +67,8 @@ a {
 .stars-board {
   background-color: rgb(207, 207, 207);
   border-radius: 5px;
-  min-height: 60vh;
+  height: 60vh;
+  max-height: 400px;
   margin-right: 35vw;
   margin-left: 35vw;
   margin-bottom: 3vh;
