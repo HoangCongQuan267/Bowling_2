@@ -7,7 +7,7 @@
         <b> Player: </b> abc <b> High score:</b> 0
       </div>
       <button class="link-btn" v-on:click="check_mode_function()">
-        Check Mode {{ is_check_mode ? ": On" : ": Off" }}
+        Checking Mode {{ is_check_mode ? ": On" : ": Off" }}
       </button>
       <button
         class="link-btn"
