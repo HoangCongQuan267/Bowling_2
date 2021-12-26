@@ -659,7 +659,7 @@ export default {
           .getBoundingClientRect();
         if (!this.pins_fall_array[i - 1]) {
           pins_ratio_array.push(
-            (red_ball_offset-1) / (pin_rect.left - game_rect.left)
+            (red_ball_offset) / (pin_rect.left - game_rect.left)
           );
         } else {
           pins_ratio_array.push(0);
@@ -1075,7 +1075,7 @@ input[type="number"] {
   width: 12px;
   height: fit-content;
   z-index: 100;
-  left: calc((100% - 12px) / 2 - 3.6%);
+  left: calc((100% - 12px) / 2 - 3.8%);
 }
 .pin-div-8 {
   position: absolute;
@@ -1100,7 +1100,7 @@ input[type="number"] {
   width: 12px;
   height: fit-content;
   z-index: 100;
-  left: calc((100% - 12px) / 2 + 7.6%);
+  left: calc((100% - 12px) / 2 + 8%);
 }
 
 .back-wall-div {
