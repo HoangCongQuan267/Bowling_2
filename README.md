@@ -1,3 +1,3 @@
 # bowling_game
 website:
-https://quan-nobiez-bowling-project-1.netlify.app/#/started_
+https://quan-nobiez-bowling-project-1.netlify.app
