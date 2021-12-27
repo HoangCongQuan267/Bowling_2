@@ -413,9 +413,6 @@ export default {
         var game_rect = document
           .getElementById("game-div")
           .getBoundingClientRect();
-        var game_rect = document
-          .getElementById("game-div")
-          .getBoundingClientRect();
 
         if (this.type_of_the_ball === "red") {
           var red_ball_rect = document
@@ -648,7 +645,7 @@ export default {
       }
     },
     /*---------------------------------------------------------------------------------------------------*/
-    caculate_pins_fall_function(red_ball_offset) {
+    caculate_pins_fall_function(ball_offset) {
       var pins_ratio_array = Array();
       var game_rect = document
         .getElementById("game-div")
@@ -659,7 +656,7 @@ export default {
           .getBoundingClientRect();
         if (!this.pins_fall_array[i - 1]) {
           pins_ratio_array.push(
-            (red_ball_offset) / (pin_rect.left - game_rect.left)
+            (ball_offset-2) / (pin_rect.left - game_rect.left)
           );
         } else {
           pins_ratio_array.push(0);
